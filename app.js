@@ -18,7 +18,19 @@ app.get('*', (req, res) => {
 app.post("/api/create-checkout-session",async(req,res)=>{
     const {products} = req.body;
 
-
+    const origin = req.get('origin');
+    console.log(origin);
+    const successUrls = {
+        'http://localhost:7000': 'http://localhost:7000/sucess', // Local development
+        'https://paymentserver-vpjj.onrender.com': 'https://paymentserver-vpjj.onrender.com/sucess', // Production
+        'https://catchyfive.com': 'https://catchyfive.com/sucess',
+    };
+    
+    const cancelUrls = {
+        'http://localhost:7000': 'http://localhost:7000/cancel', // Local development
+        'https://paymentserver-vpjj.onrender.com': 'https://paymentserver-vpjj.onrender.com/cancel', // Production
+        'https://catchyfive.com': 'https://catchyfive.com/cancel',
+    };
     const lineItems = products.OrderDetail.map((product)=>({
         price_data:{
             currency:"usd",
@@ -35,8 +47,11 @@ app.post("/api/create-checkout-session",async(req,res)=>{
         payment_method_types:["card"],
         line_items:lineItems,
         mode:"payment",
-        success_url:"https://paymentserver-vpjj.onrender.com/sucess",
-        cancel_url:"https://paymentserver-vpjj.onrender.com/cancel",
+        // success_url:"https://paymentserver-vpjj.onrender.com/sucess",
+        // cancel_url:"https://paymentserver-vpjj.onrender.com/cancel",
+
+         success_url : successUrls[origin] || 'http://localhost:7000/sucess',
+     cancel_url : cancelUrls[origin] || 'http://localhost:7000/cancel',
     });
 
     console.log(session);
