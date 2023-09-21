@@ -24,12 +24,14 @@ app.post("/api/create-checkout-session",async(req,res)=>{
         'http://localhost:7000': 'http://localhost:7000/sucess', // Local development
         'https://paymentserver-vpjj.onrender.com': 'https://paymentserver-vpjj.onrender.com/sucess', // Production
         'https://catchyfive.com': 'https://catchyfive.com/sucess',
+        'http://localhost:3000': 'http://localhost:3000/sucess',
     };
     
     const cancelUrls = {
         'http://localhost:7000': 'http://localhost:7000/cancel', // Local development
         'https://paymentserver-vpjj.onrender.com': 'https://paymentserver-vpjj.onrender.com/cancel', // Production
         'https://catchyfive.com': 'https://catchyfive.com/cancel',
+        'http://localhost:3000': 'http://localhost:3000/cancel',
     };
     const lineItems = products.OrderDetail.map((product)=>({
         price_data:{
