@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const stripe = require("stripe")("sk_test_51N00U8FFReMpJzWzW0k62c5BgKrjWNJaFnu3DHoO8PUOKie0XyHlJBwVKQaLPsORqJ9udcg2RDWNlbqExcrDxecF00uNWboKYU");
 const path = require('path');
+const job = require('~/cron.js');
+job.start();
 
 app.use(express.json());
 app.use(cors());
